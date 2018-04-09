@@ -13,8 +13,8 @@ public class ServletContextListenerImpl implements ServletContextListener{
 
 
     private static final int LOCALPORT = 6666;
-    private static final String SERVERHOST = "47.97.192.24";
-//    private static final String SERVERHOST = "192.168.0.149";
+//    private static final String SERVERHOST = "47.97.192.24";
+    private static final String SERVERHOST = "192.168.0.149";
     private ClientTcpUtil sharedClientTcpUtil = null;
 
 
@@ -25,9 +25,8 @@ public class ServletContextListenerImpl implements ServletContextListener{
 
         sharedClientTcpUtil = ClientTcpUtil.getInstance();
 
-        boolean isSuccess = sharedClientTcpUtil.createClientTcp(SERVERHOST, LOCALPORT);
+        sharedClientTcpUtil.createTcpClient(SERVERHOST, LOCALPORT);
 
-        System.out.println("Created client tcp "+isSuccess);
     }
 
     /**
@@ -53,6 +52,5 @@ public class ServletContextListenerImpl implements ServletContextListener{
 
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
 
-        sharedClientTcpUtil.dropTcpConnect();
     }
 }

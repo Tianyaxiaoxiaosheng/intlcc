@@ -1,15 +1,12 @@
 package com.jony.intlcc.util;
 
-import java.io.IOException;
-import java.net.Socket;
-
 /**
  * Created by jony on 3/26/18.
  */
 public class ClientTcpUtil {
 
-    private Socket clientSocket = null;
-    private TcpSocketThread tcpSocketThread = null; //socket process thread
+    public TcpSocketClient clientSocket = null;
+
 
     private ClientTcpUtil() {
     }
@@ -21,39 +18,13 @@ public class ClientTcpUtil {
     }
 
     /**
-     * Created tcp client
+     * Created one tcp client
      */
-    public boolean createClientTcp(String host, int port){
+    public void createTcpClient(String host, int port){
 
-        try {
-            this.clientSocket = new Socket(host, port);
-            this.tcpSocketThread = new TcpSocketThread(this.clientSocket);
-            this.tcpSocketThread.start();
-
-//            sendByTcp("TCP Client connect Success");
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return false;
+       clientSocket = new TcpSocketClient(host, port);
     }
 
-    /**
-     * Drop TCP Connect
-     */
-    public boolean dropTcpConnect(){
-        if (this.clientSocket != null){
-            try {
-                this.clientSocket.close();
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return false;
-    }
 
     /**
      * Sending a message
@@ -62,13 +33,15 @@ public class ClientTcpUtil {
 
         boolean isSuccess = false;
 
-        if (this.tcpSocketThread != null){
+        if (this.clientSocket != null){
 
-            isSuccess = this.tcpSocketThread.sendMessage(str);
+            isSuccess = this.clientSocket.sendMessage(str);
         }else {
-            System.out.println("TCP Socket Thread is null");
+            System.out.println("Client Socket is null");
         }
 
         return isSuccess;
     }
+
+
 }

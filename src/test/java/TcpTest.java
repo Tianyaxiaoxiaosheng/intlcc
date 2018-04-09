@@ -15,9 +15,9 @@ public class TcpTest {
 
         ClientTcpUtil sharedClientTcpUtil = ClientTcpUtil.getInstance();
 
-        boolean isSuccess = sharedClientTcpUtil.createClientTcp(SERVERHOST, LOCALPORT);
+        sharedClientTcpUtil.createTcpClient(SERVERHOST, LOCALPORT);
 
-        System.out.println("Created client tcp "+isSuccess);
+//        System.out.println("Created client tcp "+isSuccess);
 
 //        while (true){
 //            try {

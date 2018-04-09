@@ -78,6 +78,8 @@ public class MessageProcessUtil {
     static void HeartBeatMessageProcessing(String content){
 
         System.out.println((count++)+" : "+content);
+
+        sharedClientTcpUtil.clientSocket.hbValue = content;
     }
 
     /**
