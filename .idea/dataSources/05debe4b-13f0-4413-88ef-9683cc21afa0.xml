@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="IRCSData@192.168.0.149">
+  <database-model serializer="dbm" rdbms="MSSQL" format-version="4.2">
+    <root id="1"/>
+    <database id="2" parent="1" name="IRCSData">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <database id="3" parent="1" name="Northwind"/>
+    <database id="4" parent="1" name="jdbcStudy"/>
+    <database id="5" parent="1" name="master"/>
+    <database id="6" parent="1" name="msdb"/>
+    <database id="7" parent="1" name="pubs"/>
+    <database id="8" parent="1" name="tempdb"/>
+    <schema id="9" parent="2" name="dbo"/>
+    <schema id="10" parent="2" name="guest"/>
+  </database-model>
+</dataSource>

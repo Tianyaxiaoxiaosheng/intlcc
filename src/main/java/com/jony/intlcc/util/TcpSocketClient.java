@@ -178,7 +178,7 @@ public class TcpSocketClient {
 
                     if (diffValue > dropValue){
 
-                        System.out.println("TCP Client Drop.");
+                        System.out.println("TCP Client Drop."+(new Date().toString()));
 
 //                        destory(); //销毁相关
 
