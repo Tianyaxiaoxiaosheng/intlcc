@@ -38,6 +38,9 @@ public class TcpSocketClient {
     }
 
 
+    /**
+     * Created a connect for TCP
+     */
     private void createdConnect() {
 
         try {
@@ -62,6 +65,9 @@ public class TcpSocketClient {
 
     }
 
+    /**
+     * Stared receiver messages
+     */
     private void startedReceive(){
 
         new Thread(new Runnable() {
@@ -88,6 +94,9 @@ public class TcpSocketClient {
     }
 
 
+    /**
+     * Send a message
+     */
     public boolean sendMessage(String str) {
 
         try {
@@ -102,6 +111,9 @@ public class TcpSocketClient {
         return false;
     }
 
+    /**
+     * Destory the old connect, and initialized part of parameter.
+     */
     private void destory(){
 
         try {
@@ -131,6 +143,9 @@ public class TcpSocketClient {
     }
 
 
+    /**
+     * Monitor Heart Beat Value.
+     */
     private void monitor(){
 
         this.timer = new Timer(); //初始化
@@ -157,7 +172,7 @@ public class TcpSocketClient {
 
                         System.out.println("TCP Client Drop.");
 
-                        destory(); //销毁相关
+//                        destory(); //销毁相关
 
                         reConnect(); //重连
 
@@ -174,6 +189,8 @@ public class TcpSocketClient {
     private void reConnect(){
 
         System.out.println("Reconnect after 30 second.");
+
+        destory(); //重连之前初始参数
 
         long delayTime = 30 * 1000;
 
