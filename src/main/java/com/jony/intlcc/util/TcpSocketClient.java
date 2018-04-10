@@ -127,17 +127,25 @@ public class TcpSocketClient {
 
             this.isReceive = false;
 
-            if (this.socket != null && this.socket.isConnected()) //如果Socket在输入输出流后关闭，则会卡在输入输出关闭处
+            if (this.socket != null && this.socket.isConnected()) {//如果Socket在输入输出流后关闭，则会卡在输入输出关闭处
                 this.socket.close();
+                this.socket = null;
+            }
 
-            if (this.in != null)
+            if (this.in != null){
                 this.in.close();
+                this.in = null;
+            }
 
-            if (this.out != null)
+
+            if (this.out != null){
                 this.out.close();
+                this.out = null;
+            }
+
 
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
 
     }

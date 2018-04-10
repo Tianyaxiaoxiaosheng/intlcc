@@ -93,7 +93,11 @@ public class MessageProcessUtil {
         if (object instanceof RegisterMessage){
 
             RegisterMessage registerMessage = (RegisterMessage) object;
-            System.out.println("Register Message : "+registerMessage.toString());
+            System.out.println("Register Message : "+registerMessage.getUser()+"\t"+registerMessage.getPassword());
+
+            //查询验证回复
+            RegReplyMessage regReplyMessage = new RegReplyMessage(registerMessage.getUser(), false, "null");
+            codeRegRepMessageAndSend(regReplyMessage);
         }
     }
 }

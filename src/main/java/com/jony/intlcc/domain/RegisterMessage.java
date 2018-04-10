@@ -34,6 +34,6 @@ public class RegisterMessage {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "user: "+this.user+"\tpassword: "+this.password;
     }
 }

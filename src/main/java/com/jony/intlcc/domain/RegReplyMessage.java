@@ -5,15 +5,26 @@ package com.jony.intlcc.domain;
  */
 public class RegReplyMessage {
 
+    private String user;
     private boolean status;
     private String roomInfo;
+
 
     public RegReplyMessage() {
     }
 
-    public RegReplyMessage(boolean status, String roomInfo) {
+    public RegReplyMessage(String user, boolean status, String roomInfo) {
+        this.user = user;
         this.status = status;
         this.roomInfo = roomInfo;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public boolean isStatus() {
