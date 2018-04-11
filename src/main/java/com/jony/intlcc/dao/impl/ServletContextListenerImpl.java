@@ -1,6 +1,6 @@
 package com.jony.intlcc.dao.impl;
 
-import com.jony.intlcc.util.ClientTcpUtil;
+import com.jony.intlcc.util.TcpClientUtil;
 import com.jony.intlcc.util.UdpUtil;
 
 import javax.servlet.ServletContextEvent;
@@ -15,7 +15,7 @@ public class ServletContextListenerImpl implements ServletContextListener{
     private static final int LOCALPORT = 6666;
 //    private static final String SERVERHOST = "47.97.192.24";
     private static final String SERVERHOST = "192.168.0.149";
-    private ClientTcpUtil sharedClientTcpUtil = null;
+    private TcpClientUtil sharedClientTcpUtil = null;
 
 
     /**
@@ -23,7 +23,7 @@ public class ServletContextListenerImpl implements ServletContextListener{
      */
     private void initializationTcpClient(){
 
-        sharedClientTcpUtil = ClientTcpUtil.getInstance();
+        sharedClientTcpUtil = TcpClientUtil.getInstance();
 
         sharedClientTcpUtil.createTcpClient(SERVERHOST, LOCALPORT);
 

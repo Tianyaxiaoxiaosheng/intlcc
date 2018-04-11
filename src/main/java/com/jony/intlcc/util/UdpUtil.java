@@ -9,7 +9,7 @@ import java.net.*;
  */
 public class UdpUtil {
 
-    private ClientTcpUtil sharedClientTcpUtil = ClientTcpUtil.getInstance();
+    private TcpClientUtil sharedClientTcpUtil = TcpClientUtil.getInstance();
 
     private static final int INPORT = 5000; //本地端口
     private DatagramSocket localSocket; //本地socket
@@ -67,7 +67,7 @@ public class UdpUtil {
                         System.out.println("udp client receive:" + recvString);
 
                         //测试消息处理
-//                        TCPMessageProcessThread messageProcessThread = new TCPMessageProcessThread(SocketType.UDP, recvString);
+//                        MessageProcessThread messageProcessThread = new MessageProcessThread(SocketType.UDP, recvString);
 //                        messageProcessThread.start();
                         new UDPMessageProcessThread(recvString).start();
 

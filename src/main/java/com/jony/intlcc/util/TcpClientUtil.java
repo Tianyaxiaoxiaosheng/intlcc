@@ -3,17 +3,17 @@ package com.jony.intlcc.util;
 /**
  * Created by jony on 3/26/18.
  */
-public class ClientTcpUtil {
+public class TcpClientUtil {
 
     public TcpSocketClient clientSocket = null;
 
 
-    private ClientTcpUtil() {
+    private TcpClientUtil() {
     }
 
-    private static ClientTcpUtil sharedClientTcpUtil = new ClientTcpUtil();
+    private static TcpClientUtil sharedClientTcpUtil = new TcpClientUtil();
 
-    public static ClientTcpUtil getInstance(){
+    public static TcpClientUtil getInstance(){
         return sharedClientTcpUtil;
     }
 

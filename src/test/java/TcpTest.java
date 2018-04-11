@@ -1,4 +1,4 @@
-import com.jony.intlcc.util.ClientTcpUtil;
+import com.jony.intlcc.util.TcpClientUtil;
 import org.junit.Test;
 
 /**
@@ -13,7 +13,7 @@ public class TcpTest {
     @Test
     public void tcpTest(){
 
-        ClientTcpUtil sharedClientTcpUtil = ClientTcpUtil.getInstance();
+        TcpClientUtil sharedClientTcpUtil = TcpClientUtil.getInstance();
 
         sharedClientTcpUtil.createTcpClient(SERVERHOST, LOCALPORT);
 

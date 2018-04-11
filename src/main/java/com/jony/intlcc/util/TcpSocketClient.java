@@ -81,7 +81,7 @@ public class TcpSocketClient {
                     while (isReceive && (message = in.readLine()) != null){
 
                         System.out.println("TCP Server Message:" + message);
-                        new TCPMessageProcessThread(message).start();
+                        new MessageProcessThread(message).start();
 
                     }
 

@@ -1,6 +1,6 @@
 package com.jony.intlcc.util;
 
-import com.jony.intlcc.domain.TCPMessageType;
+import com.jony.intlcc.domain.MessageType;
 
 /**
  * Created by jony on 3/27/18.
@@ -17,7 +17,7 @@ public class UDPMessageProcessThread extends Thread{
     public void run() {
 
         if (message != null){
-            MessageProcessUtil.codeTCPMessageAndSend(TCPMessageType.STATE, this.message);
+            MessageProcessUtil.codeMessageAndSend(MessageType.STATE, this.message);
         }
     }
 }

@@ -1,16 +1,16 @@
 package com.jony.intlcc.util;
 
-import com.jony.intlcc.domain.TCPMessage;
+import com.jony.intlcc.domain.Message;
 import net.sf.json.JSONObject;
 
 /**
  * Created by jony on 3/27/18.
  */
-public class TCPMessageProcessThread extends Thread{
+public class MessageProcessThread extends Thread{
 
     private String message = null;
 
-    public TCPMessageProcessThread(String message) {
+    public MessageProcessThread(String message) {
         this.message = message;
     }
 
@@ -21,25 +21,25 @@ public class TCPMessageProcessThread extends Thread{
 
         JSONObject jsonObject = JSONObject.fromObject(message);
 
-        TCPMessage tcpMessage = (TCPMessage) JSONObject.toBean(jsonObject, TCPMessage.class);
+        Message message = (Message) JSONObject.toBean(jsonObject, Message.class);
 
-        if (tcpMessage != null) {
-            switch (tcpMessage.getType()) {
+        if (message != null) {
+            switch (message.getType()) {
 
                 case CONTROL:
-                    MessageProcessUtil.controlMessageProcessing(tcpMessage.getContent());
+                    MessageProcessUtil.controlMessageProcessing(message.getContent());
                     break;
 
                 case REGISTER:
-                    MessageProcessUtil.registerMessageProcessing(tcpMessage.getContent());
+                    MessageProcessUtil.registerMessageProcessing(message.getContent());
                     break;
 
                 case HEART_BEAT:
-                    MessageProcessUtil.HeartBeatMessageProcessing(tcpMessage.getContent());
+                    MessageProcessUtil.HeartBeatMessageProcessing(message.getContent());
                     break;
 
                 case NONE:
-                    MessageProcessUtil.noneMessageProcessing(tcpMessage.getContent());
+                    MessageProcessUtil.noneMessageProcessing(message.getContent());
                     break;
 
                 case STATE: //server

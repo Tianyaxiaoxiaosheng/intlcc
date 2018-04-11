@@ -8,7 +8,7 @@ import net.sf.json.JSONObject;
  */
 public class MessageProcessUtil {
 
-    private static ClientTcpUtil sharedClientTcpUtil = ClientTcpUtil.getInstance();
+    private static TcpClientUtil sharedClientTcpUtil = TcpClientUtil.getInstance();
     private static UdpUtil sharedUdpUtil = UdpUtil.getInstance();
 
     static int count = 0;
@@ -17,11 +17,11 @@ public class MessageProcessUtil {
     /**
      * TCP Message code and send
      */
-    static void codeTCPMessageAndSend(TCPMessageType type, String content){
+    static void codeMessageAndSend(MessageType type, String content){
 
-//        TCPMessage socketMessage = new TCPMessage(TCPMessageType.STATE, content);
+//        Message socketMessage = new Message(MessageType.STATE, content);
 //        JSONObject jsonObject = JSONObject.fromObject(socketMessage);
-        JSONObject jsonObject = JSONObject.fromObject(new TCPMessage(type, content));
+        JSONObject jsonObject = JSONObject.fromObject(new Message(type, content));
 
         boolean isSuccess = sharedClientTcpUtil.sendByTcp(jsonObject.toString());
         System.out.println("tcp send "+isSuccess);
@@ -34,7 +34,7 @@ public class MessageProcessUtil {
 
         JSONObject jsonObject = JSONObject.fromObject(regReplyMessage);
 
-        codeTCPMessageAndSend(TCPMessageType.REGISTER_REPLY, jsonObject.toString());
+        codeMessageAndSend(MessageType.REGISTER_REPLY, jsonObject.toString());
     }
 
 

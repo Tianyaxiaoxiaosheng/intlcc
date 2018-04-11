@@ -3,25 +3,25 @@ package com.jony.intlcc.domain;
 /**
  * Created by jony on 3/27/18.
  */
-public class TCPMessage {
+public class Message {
 
-    private TCPMessageType type;
+    private MessageType type;
     private String content;
 
 
-    public TCPMessage() {
+    public Message() {
     }
 
-    public TCPMessage(TCPMessageType type, String content) {
+    public Message(MessageType type, String content) {
         this.type = type;
         this.content = content;
     }
 
-    public TCPMessageType getType() {
+    public MessageType getType() {
         return type;
     }
 
-    public void setType(TCPMessageType type) {
+    public void setType(MessageType type) {
         this.type = type;
     }
 
@@ -35,7 +35,7 @@ public class TCPMessage {
 
     @Override
     public String toString() {
-        return "TCPMessage{" +
+        return "Message{" +
                 "type=" + type +
                 ", content='" + content + '\'' +
                 '}';
