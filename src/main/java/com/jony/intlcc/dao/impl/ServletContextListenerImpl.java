@@ -1,7 +1,8 @@
 package com.jony.intlcc.dao.impl;
 
+import com.jony.intlcc.util.OutUdpUtil;
 import com.jony.intlcc.util.TcpClientUtil;
-import com.jony.intlcc.util.UdpUtil;
+import com.jony.intlcc.util.InUdpUtil;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,10 +14,16 @@ public class ServletContextListenerImpl implements ServletContextListener{
 
 
     private static final int LOCALPORT = 6666;
-//    private static final String SERVERHOST = "47.97.192.24";
-    private static final String SERVERHOST = "192.168.0.149";
+    private static final String SERVERHOST = "47.97.192.24";
+//    private static final String SERVERHOST = "192.168.0.149";
+
     private TcpClientUtil sharedClientTcpUtil = null;
 
+    private static final int OUTUDP_DESPORT = 7000;
+
+    private static final int OUTUDP_SERVERPORT = 7000;
+
+    private static final int INUDP_SERVERPORT = 5000;
 
     /**
      *初始化一个链接到云服务器的tcp客户端
@@ -35,9 +42,17 @@ public class ServletContextListenerImpl implements ServletContextListener{
     private void initlizationUdpServer(){
         System.out.println("UDP Socket Initialization");
         //启动udp接收
-        UdpUtil sharedUdpUtil = UdpUtil.getInstance();
+        InUdpUtil sharedInUdpUtil = InUdpUtil.getInstance();
+        sharedInUdpUtil.setServerPort(INUDP_SERVERPORT);
         //开始接收消息
-        sharedUdpUtil.startReceive();
+        sharedInUdpUtil.startReceive();
+
+        //外网udp
+        OutUdpUtil sharedOutUdpUtil = OutUdpUtil.getInstance();
+        sharedOutUdpUtil.setServerPort(OUTUDP_SERVERPORT);
+        sharedOutUdpUtil.setDesIp(SERVERHOST);
+        sharedOutUdpUtil.setDesPort(OUTUDP_DESPORT);
+        sharedOutUdpUtil.startReceive();
     }
 
 

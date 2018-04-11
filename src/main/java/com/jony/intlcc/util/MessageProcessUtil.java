@@ -9,7 +9,9 @@ import net.sf.json.JSONObject;
 public class MessageProcessUtil {
 
     private static TcpClientUtil sharedClientTcpUtil = TcpClientUtil.getInstance();
-    private static UdpUtil sharedUdpUtil = UdpUtil.getInstance();
+    private static InUdpUtil sharedInUdpUtil = InUdpUtil.getInstance();
+
+    private static OutUdpUtil sharedOutUdpUtil = OutUdpUtil.getInstance();
 
     static int count = 0;
 
@@ -23,8 +25,24 @@ public class MessageProcessUtil {
 //        JSONObject jsonObject = JSONObject.fromObject(socketMessage);
         JSONObject jsonObject = JSONObject.fromObject(new Message(type, content));
 
-        boolean isSuccess = sharedClientTcpUtil.sendByTcp(jsonObject.toString());
-        System.out.println("tcp send "+isSuccess);
+        boolean isSuccess = false;
+
+        switch (type){
+            case STATE:
+//                isSuccess = sharedOutUdpUtil.send(jsonObject.toString());
+//                break;
+
+            case NONE:
+            case REGISTER_REPLY:
+                isSuccess = sharedClientTcpUtil.sendByTcp(jsonObject.toString());
+                break;
+
+                default:
+                    System.out.println("Unknown Message Type.");
+        }
+
+
+        System.out.println("Message send "+isSuccess);
     }
 
     /**
@@ -62,11 +80,11 @@ public class MessageProcessUtil {
             ControlMessage controlMessage = (ControlMessage) object;
 
             //仅仅是发送结果
-            boolean isSuccess = sharedUdpUtil.send(controlMessage.getContent()
+            boolean isSuccess = sharedInUdpUtil.send(controlMessage.getContent()
                     ,controlMessage.getRcuIp()
                     ,controlMessage.getRcuPort());
 
-            System.out.println("udp send "+isSuccess);
+            System.out.println("In udp send "+isSuccess);
         }
 
     }
