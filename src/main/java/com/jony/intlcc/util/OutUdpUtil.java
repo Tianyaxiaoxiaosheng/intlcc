@@ -8,12 +8,11 @@ import java.net.*;
  */
 public class OutUdpUtil {
 
-    private  int serverPort = 0; //本地端口
+    private  int localPort = 0; //本地端口
     private DatagramSocket localSocket; //本地socket
     private boolean isReceive = true; //udp 接收标志
 
-    private InetAddress desAddress = null;
-    private int desPort = 0;
+    private InetSocketAddress desAddress = null;
 
     private OutUdpUtil() {
 
@@ -28,23 +27,12 @@ public class OutUdpUtil {
     }
 
 
-    public void setDesIp(String desIp){
-
-        try {
-            this.desAddress = InetAddress.getByName(desIp);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+    public void setDesAddress(InetSocketAddress desAddress) {
+        this.desAddress = desAddress;
     }
 
-
-
-    public void setDesPort(int desPort) {
-        this.desPort = desPort;
-    }
-
-    public void setServerPort(int serverPort) {
-        this.serverPort = serverPort;
+    public void setLocalPort(int localPort) {
+        this.localPort = localPort;
     }
 
     /**
@@ -54,11 +42,11 @@ public class OutUdpUtil {
 
 
         //socket 创建
-        if (this.serverPort != 0){
+        if (this.localPort != 0){
 
             try {
 
-                localSocket = new DatagramSocket(this.serverPort);
+                localSocket = new DatagramSocket(this.localPort);
             } catch (SocketException e) {
                 e.printStackTrace();
             }
@@ -80,6 +68,9 @@ public class OutUdpUtil {
 
                 System.out.println("Out Udp receive started !");
 
+                //发送测试
+//                send("hello");
+
                 try {
 
                     System.out.println("Out UDP ip:" + InetAddress.getLocalHost().getHostAddress() + "\tport:" + localSocket.getLocalPort());
@@ -88,6 +79,7 @@ public class OutUdpUtil {
                         localSocket.receive(recePacket);
                         String recvString = new String(recePacket.getData(), 0, recePacket.getLength());
                         System.out.println("Out Udp receive:" + recvString);
+
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -112,16 +104,17 @@ public class OutUdpUtil {
      */
     public boolean send(String sendStr) {
 
+        boolean isSuccess = false;
         //检查地址合法性
-       if ((this.desAddress != null) && (this.desPort != 0) && (this.localSocket != null)){
+       if ((this.desAddress != null) && (this.localSocket != null)){
 
            byte[] sendBuf = sendStr.getBytes();
-           DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, this.desAddress, this.desPort);
+           DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, this.desAddress);
 
            try {
 
                this.localSocket.send(packet);
-               return true;
+               isSuccess = true;
            } catch (IOException e) {
 
                e.printStackTrace();
@@ -129,7 +122,9 @@ public class OutUdpUtil {
        }
 
 
-        return false;
+       System.out.println("Out UDP send "+isSuccess);
+        return isSuccess;
+
     }
 
 }

@@ -6,6 +6,7 @@ import com.jony.intlcc.util.InUdpUtil;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.net.InetSocketAddress;
 
 /**
  * Created by jony on 3/26/18.
@@ -14,14 +15,14 @@ public class ServletContextListenerImpl implements ServletContextListener{
 
 
     private static final int LOCALPORT = 6666;
-    private static final String SERVERHOST = "47.97.192.24";
-//    private static final String SERVERHOST = "192.168.0.149";
+//    private static final String SERVERHOST = "47.97.192.24";
+    private static final String SERVERHOST = "192.168.0.149";
 
     private TcpClientUtil sharedClientTcpUtil = null;
 
     private static final int OUTUDP_DESPORT = 7000;
 
-    private static final int OUTUDP_SERVERPORT = 7000;
+    private static final int OUTUDP_LOCALPORT = 7000;
 
     private static final int INUDP_SERVERPORT = 5000;
 
@@ -44,14 +45,12 @@ public class ServletContextListenerImpl implements ServletContextListener{
         //启动udp接收
         InUdpUtil sharedInUdpUtil = InUdpUtil.getInstance();
         sharedInUdpUtil.setServerPort(INUDP_SERVERPORT);
-        //开始接收消息
         sharedInUdpUtil.startReceive();
 
         //外网udp
         OutUdpUtil sharedOutUdpUtil = OutUdpUtil.getInstance();
-        sharedOutUdpUtil.setServerPort(OUTUDP_SERVERPORT);
-        sharedOutUdpUtil.setDesIp(SERVERHOST);
-        sharedOutUdpUtil.setDesPort(OUTUDP_DESPORT);
+        sharedOutUdpUtil.setLocalPort(OUTUDP_LOCALPORT);
+        sharedOutUdpUtil.setDesAddress(new InetSocketAddress(SERVERHOST, OUTUDP_DESPORT));
         sharedOutUdpUtil.startReceive();
     }
 
